@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private var lemonTree = LemonTree()
     private var lemonImage: ImageView? = null
+    private var lemonText: TextView? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         }
         // === END IF STATEMENT ===
 
+        lemonText = findViewById(R.id.text_action)
         lemonImage = findViewById(R.id.image_lemon_state)
         setViewElements()
         lemonImage!!.setOnClickListener {
@@ -137,15 +139,24 @@ class MainActivity : AppCompatActivity() {
     private fun setViewElements() {
         val textAction: TextView = findViewById(R.id.text_action)
         // TODO: set up a conditional that tracks the lemonadeState
-        val drawableResource = when(lemonadeState) {
+        when(lemonadeState) {
             SELECT -> {
-                R.drawable.lemon_tree
+                lemonImage?.setImageResource(R.drawable.lemon_tree)
+                lemonText?.setText(R.string.lemon_select)
             }
-            SQUEEZE -> R.drawable.lemon_squeeze
-            DRINK -> R.drawable.lemon_drink
-            else -> R.drawable.lemon_restart
+            SQUEEZE -> {
+                lemonImage?.setImageResource(R.drawable.lemon_squeeze)
+                lemonText?.setText(R.string.lemon_squeeze)
+            }
+            DRINK -> {
+                lemonImage?.setImageResource(R.drawable.lemon_drink)
+                lemonText?.setText(R.string.lemon_drink)
+            }
+            RESTART -> {
+                lemonImage?.setImageResource(R.drawable.lemon_restart)
+                lemonText?.setText(R.string.lemon_empty_glass)
+            }
         }
-        lemonImage?.setImageResource(drawableResource)
 
         // TODO: for each state, the textAction TextView should be set to the corresponding string from
         //  the string resources file. The strings are named to match the state
